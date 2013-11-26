@@ -27,7 +27,7 @@ typedef r_image *image ;
 image* construit_blanc()
 {
 image* p;
-p->toutnoir=false;
+p.toutnoir=false;
 return p;
 }
 
@@ -38,7 +38,7 @@ p->toutnoir=true;
 return p;
 }
 
-void construit_composee(image i1, image i2, image i3, image i4)
+image* construit_composee(image i1, image i2, image i3, image i4)
 {
 image* p;
 p->fils[1]=i1;
