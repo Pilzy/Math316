@@ -10,7 +10,7 @@
 
 int main()
 {
-	printf("Pour une fois c'est moi qui baise ta soeur ;) \n");
+	fprintf("Pour une fois c'est moi qui baise ta soeur ;) \n");
 	
 	return 0;
 }
