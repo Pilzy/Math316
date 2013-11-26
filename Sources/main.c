@@ -10,26 +10,26 @@
  
 image* construit_blanc()
 {
-image* p;
-p->toutnoir=false;
-return p;
+	image* p;
+	p->toutnoir=false;
+	return p;
 }
 
 image* construit_noir()
 {
-image* p;
-p->toutnoir=true;
-return p;
+	image* p;
+	p->toutnoir=true;
+	return p;
 }
 
 image* construit_composee(image i1, image i2, image i3, image i4)
 {
-image* p;
-p->fils[1]=i1;
-p->fils[2]=i2;
-p->fils[3]=i3;
-p->fils[4]=i4;
-return p;
+	image* p;
+	p->fils[1]=i1;
+	p->fils[2]=i2;
+	p->fils[3]=i3;
+	p->fils[4]=i4;
+	return p;
 }
 
 /*void construit_image()
