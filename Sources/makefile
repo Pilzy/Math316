@@ -7,7 +7,7 @@ H = $(wildcard *.h)
 
 CFLAGS = -Wall -pedantic -std=c99 -D_GNU_SOURCE
 
-PROG = Imaginarium
+PROG = Nebuleuse
 
 all : .c.o 
 	@$(CC) -o $(PROG) $(OBJS) $(LIB)
