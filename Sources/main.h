@@ -2,14 +2,17 @@
 #ifndef MAIN
 #define MAIN
 
+/*Inclusion des librairies*/
 #include <stdio.h>
 #include <stdlib.h>
 
+/*Define demandés*/
 #define ISNOT !=
 #define NOT !
 #define AND &&
 #define OR ||
 
+/*Structures*/
 typedef enum
 {
 	false,
@@ -24,29 +27,11 @@ typedef struct tmp_image
 
 typedef r_image *image ;
 
-image* construit_blanc()
-{
-image* p;
-p->toutnoir=false;
-return p;
-}
 
-image* construit_noir()
-{
-image* p;
-p->toutnoir=true;
-return p;
-}
-
-void construit_composee(image i1, image i2, image i3, image i4)
-{
-image* p;
-p->fils[1]=i1;
-p->fils[2]=i2;
-p->fils[3]=i3;
-p->fils[4]=i4;
-return p;
-}
+/*Prototypes*/
+image construit_blanc();
+image construit_noir();
+void construit_composee(image i1, image i2, image i3, image i4);
 
 /*void construit_image()
 void construit_composee(i1,i2,i3,i4)
@@ -63,9 +48,5 @@ void arrondit(r_image A)
 void nebuleuse(int k)
 void Alea(int k, int n)
 void menu(osef)*/
-
-int main()
-{
-}
 
 #endif
