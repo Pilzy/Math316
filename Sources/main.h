@@ -1,18 +1,28 @@
+
+#ifndef MAIN
+#define MAIN
+
+#include <stdio.h>
+#include <stdlib.h>
+
 #define ISNOT !=
 #define NOT !
 #define AND &&
 #define OR ||
-typedef enum {
-false,
-true
+
+typedef enum
+{
+	false,
+	true
 } bool;
 
 typedef struct tmp_image
-{ bool toutnoir ;
-struct tmp_image * fils[4] ;
-} r_image ;
-typedef r_image *image ;
+{
+	bool toutnoir ;
+	struct tmp_image * fils[4] ;
+} r_image;
 
+<<<<<<< HEAD:Test1.c
 /* pour compiler dans un terminal
  gcc Test1.c -o Test1*/
  /*
@@ -24,6 +34,13 @@ typedef r_image *image ;
 
 void construit_blanc()
 {
+=======
+typedef r_image *image ;
+
+/*void construit_blanc()
+void construit_noir()*/
+void construit_composee(int, int, int, int);
+>>>>>>> af5c060ba98ffdaf72b8ec67d1f4e3116307ab07:Sources/main.h
 
 /*
 void construit_noir()
@@ -42,7 +59,12 @@ void nebuleuse(int k)
 void Alea(int k, int n)
 void menu(osef)*/
 
+<<<<<<< HEAD:Test1.c
 int main()
 {
 }
 {
+=======
+
+#endif
+>>>>>>> af5c060ba98ffdaf72b8ec67d1f4e3116307ab07:Sources/main.h
