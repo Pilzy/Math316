@@ -38,7 +38,7 @@ p->toutnoir=true;
 return p;
 }
 
-void construit_composee(i1, i2, i3, i4)
+void construit_composee(image i1, image i2, image i3, image i4)
 {
 image* p;
 p->fils[1]=i1;
