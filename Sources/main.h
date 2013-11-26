@@ -26,7 +26,7 @@ typedef r_image *image ;
 
 image* construit_blanc()
 {
-image* p;
+r_image* p;
 p.toutnoir=false;
 return p;
 }
