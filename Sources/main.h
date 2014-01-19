@@ -23,15 +23,12 @@ typedef struct tmp_image
 {
 	bool toutnoir ;
 	struct tmp_image * fils[4] ;
-} r_image;
-
-typedef r_image *image ;
-
+} r_image, *image ;
 
 /*Prototypes*/
 image construit_blanc();
 image construit_noir();
-void construit_composee(image i1, image i2, image i3, image i4);
+image construit_composee(image i1, image i2, image i3, image i4);
 
 /*void construit_image();
 void construit_composee(image i1, image i2, image i3, image i4);
