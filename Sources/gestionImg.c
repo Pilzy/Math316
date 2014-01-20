@@ -82,7 +82,7 @@ void negatif(image img)
 	}
 	else
 	{
-		tmp = construitComposee(img->fils[0]), img->fils[1], img->fils[2], img->fils[3]);
+		tmp = construitComposee(img->fils[0], img->fils[1], img->fils[2], img->fils[3]);
 		rendMemoire(img);
 		img = tmp;
 	}
