@@ -26,10 +26,11 @@ typedef struct tmp_image
 } r_image, *image ;
 
 /*Prototypes*/
-image construit_blanc();
-image construit_noir();
-image construit_composee(image, image, image, image);
+image construitBlanc();
+image construitNoir();
+image construitComposee(image, image, image, image);
 image lireClavier();
+image lireClavierRecurssif(char);
 void affichageNormal(image);
 void affichageProfondeur(image);
 void affichageProfondeurK(image, int);
