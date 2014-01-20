@@ -29,16 +29,32 @@ image construitComposee(image i1, image i2, image i3, image i4)
 
 bool estBlanche(image img)
 {
-	return img == NULL ? true : false;
+	if(img == NULL)
+		return true;
+	else if(img->toutnoir == true)
+		return false;
+	else
+		return (estBlanche(img->fils[0]) == true) && (estBlanche(img->fils[1]) == true) && (estBlanche(img->fils[2]) == true) && (estBlanche(img->fils[3]) == true) ? true : false;
 }
 
 bool estNoire(image img)
 {
-	return (img != NULL) && (img->toutnoir == true) ? true : false;
+	if(img == NULL)
+		return false;
+	else if(img->toutnoir == true)
+		return true;
+	else
+		return (estNoire(img->fils[0]) == true) && (estNoire(img->fils[1]) == true) && (estNoire(img->fils[2]) == true) && (estNoire(img->fils[3]) == true) ? true : false;
 }
 
-bool memeDessin(image img1, image img2)
+bool memeDessin(image src1, image src2)
 {
+	/* On commence par simplifie les deux images données */
+	image img1 = copie(src1);
+	simplifie(img1);
+	image img2 = copie(src2);
+	simplifie(img2);
+	
 	if(img1 == NULL)
 		return img2 == NULL ? true : false;
 	else if(img2 == NULL)
@@ -54,7 +70,27 @@ bool memeDessin(image img1, image img2)
 
 void simplifie(image img)
 {
-	
+	/*Si l'image est pixellisée alors on fait quelque chose. */
+	if((img != NULL) && (img->toutnoir != true))
+	{
+		/* Si les 4 sont blanches alors on simplifie */
+		if((estBlanche(img->fils[0]) == true) && (estBlanche(img->fils[1]) == true) && (estBlanche(img->fils[2]) == true) && (estBlanche(img->fils[3]) == true))
+		{
+			rendMemoire(img);
+			img = NULL;
+		}
+		/* Si les 4 sont noires alors on simplifie */
+		else if((estNoire(img->fils[0]) == true) && (estNoire(img->fils[1]) == true) && (estNoire(img->fils[2]) == true) && (estNoire(img->fils[3]) == true))
+			img->toutnoir = true;
+		/* Sinon on essaie de simplifier les pixels */
+		else
+		{
+			simplifie(img->fils[0]);
+			simplifie(img->fils[1]);
+			simplifie(img->fils[2]);
+			simplifie(img->fils[3]);
+		}
+	}
 }
 
 /* Renvoie une image qui est la copie de celle passée en parametre */
@@ -90,8 +126,14 @@ void negatif(image img)
 
 /* Renvoie une image qui est noire là où les deux images sont différentes.
    Si une image est plus pixellisée que l'autre alors nous pixellisons l'image la moins pixellisée */
-image difference(image img1, image img2)
+image difference(image src1, image src2)
 {
+	/* On commence par simplifie les deux images données */
+	image img1 = copie(src1);
+	simplifie(img1);
+	image img2 = copie(src2);
+	simplifie(img2);
+	
 	/* img1 est blanche */
 	if(img1 == NULL)
 	{
