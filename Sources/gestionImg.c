@@ -126,6 +126,7 @@ image copie(image src)
 /* Transforme l'image en negatif */
 void negatif(image* img)
 {
+	int i;
 	image tmp = NULL;
 	
 	if(*img == NULL)
@@ -137,9 +138,12 @@ void negatif(image* img)
 	}
 	else
 	{
+		for(i = 0; i < 4; i++)
+		{
+			negatif(&((*img)->fils[i]));
+		}
 		tmp = construitComposee((*img)->fils[0], (*img)->fils[1], (*img)->fils[2], (*img)->fils[3]);
-		rendMemoire(*img);
-		img = &tmp;
+		*img = tmp;
 	}
 }
 
