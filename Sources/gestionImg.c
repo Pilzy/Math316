@@ -142,7 +142,8 @@ void negatif(image* img)
 		{
 			negatif(&((*img)->fils[i]));
 		}
-		tmp = construitComposee((*img)->fils[0], (*img)->fils[1], (*img)->fils[2], (*img)->fils[3]);
+		tmp = construitComposee(copie((*img)->fils[0]), copie((*img)->fils[1]), copie((*img)->fils[2]), copie((*img)->fils[3]));
+		rendMemoire(*img);
 		*img = tmp;
 	}
 }

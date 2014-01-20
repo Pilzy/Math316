@@ -28,6 +28,7 @@ int main()
 	printf("Voici votre image 3 : ");
 	affichageNormal(img3);
 	printf("\n");
+	printf("Aire en Noire : %d et %d \n", aireNoire(img1), aireNoire(img2));
 	
 	if(img1 != NULL)
 		rendMemoire(img1);
