@@ -168,67 +168,33 @@ image difference(image src1, image src2)
 			ret = NULL;
 		/* img2 est noire */
 		else if(img2->toutnoir == true)
-		{
-			image ret = (image) calloc(1, sizeof(r_image));
-			ret->toutnoir = true;
-		}
+			ret = construitNoir();
 		/* Il faut pixelliser img1 */
 		else
-		{
-			image ret = (image) calloc(1, sizeof(r_image));
-			ret->toutnoir = false;
-			ret->fils[0] = difference(img1, img2->fils[0]);
-			ret->fils[1] = difference(img1, img2->fils[1]);
-			ret->fils[2] = difference(img1, img2->fils[2]);
-			ret->fils[3] = difference(img1, img2->fils[3]);
-		}
+			ret = construitComposee(copie(difference(img1, img2->fils[0])), copie(difference(img1, img2->fils[1])), copie(difference(img1, img2->fils[2])), copie(difference(img1, img2->fils[3])));
 	}
 	/* img1 est noire */
 	else if(img1->toutnoir == true)
 	{
 		/* img2 est blanche */
 		if(img2 == NULL)
-		{
-			image ret = (image) calloc(1, sizeof(r_image));
-			ret->toutnoir = true;
-		}
+			ret = construitNoir();
 		/* img2 est noire */
 		else if(img2->toutnoir == true)
 			ret = NULL;
 		/* Il faut pixelliser img1 */
 		else
-		{
-			image ret = (image) calloc(1, sizeof(r_image));
-			ret->toutnoir = false;
-			ret->fils[0] = difference(img1, img2->fils[0]);
-			ret->fils[1] = difference(img1, img2->fils[1]);
-			ret->fils[2] = difference(img1, img2->fils[2]);
-			ret->fils[3] = difference(img1, img2->fils[3]);
-		}
+			ret = construitComposee(copie(difference(img1, img2->fils[0])), copie(difference(img1, img2->fils[1])), copie(difference(img1, img2->fils[2])), copie(difference(img1, img2->fils[3])));
 	}
 	/* img1 est pixellisée */
 	else
 	{
 		/* img2 est blanche ou blanche */
-		if((img2 == NULL) || (img2->toutnoir == true))
-		{
-			image ret = (image) calloc(1, sizeof(r_image));
-			ret->toutnoir = false;
-			ret->fils[0] = difference(img1->fils[0], img2);
-			ret->fils[1] = difference(img1->fils[1], img2);
-			ret->fils[2] = difference(img1->fils[2], img2);
-			ret->fils[3] = difference(img1->fils[3], img2);
-		}
+		if((img2 == NULL) || (img2->toutnoir == true))          
+			ret = construitComposee(copie(difference(img1->fils[0], img2)), copie(difference(img1->fils[1], img2)), copie(difference(img1->fils[2], img2)), copie(difference(img1->fils[3], img2)));
 		/* Les deux images sont pixellisées */
-		else
-		{
-			image ret = (image) calloc(1, sizeof(r_image));
-			ret->toutnoir = false;
-			ret->fils[0] = difference(img1->fils[0], img2->fils[0]);
-			ret->fils[1] = difference(img1->fils[1], img2->fils[1]);
-			ret->fils[2] = difference(img1->fils[2], img2->fils[2]);
-			ret->fils[3] = difference(img1->fils[3], img2->fils[3]);
-		}
+		else          
+			ret = construitComposee(copie(difference(img1->fils[0], img2->fils[0])), copie(difference(img1->fils[1], img2->fils[1])), copie(difference(img1->fils[2], img2->fils[2])), copie(difference(img1->fils[3], img2->fils[3])));
 	}
 	
 	rendMemoire(img1);
