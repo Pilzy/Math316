@@ -73,7 +73,23 @@ void simplifie(image img)
 	/*Si l'image est pixellisée alors on fait quelque chose. */
 	if((img != NULL) && (img->toutnoir != true))
 	{
-		
+		/* Si les 4 sont blanches alors on simplifie */
+		if((estBlanche(img[0]) == true) && (estBlanche(img[1]) == true) && (estBlanche(img[2]) == true) && (estBlanche(img[3]) == true))
+		{
+			rendMemoire(img);
+			img = NULL;
+		}
+		/* Si les 4 sont noires alors on simplifie */
+		else if((estNoire(img[0]) == true) && (estNoire(img[1]) == true) && (estNoire(img[2]) == true) && (estNoire(img[3]) == true))
+			img->toutnoir = true;
+		/* Sinon on essaie de simplifier les pixels */
+		else
+		{
+			simplifie(img[0]);
+			simplifie(img[1]);
+			simplifie(img[2]);
+			simplifie(img[3]);
+		}
 	}
 }
 
