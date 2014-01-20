@@ -54,8 +54,8 @@ bool memeDessin(image img1, image img2)
 
 image simplifie(image img)
 {
-	image img = (image) calloc(1, sizeof(r_image));
-	return img;
+	image img0 = (image) calloc(1, sizeof(r_image));
+	return img0;
 }
 
 /*Renvoie une image qui est la copie de celle passée en parametre */

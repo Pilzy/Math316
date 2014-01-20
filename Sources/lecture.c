@@ -11,7 +11,7 @@ image lireClavier()
 {
 	char c;
 	
-	printf("Entrez votre image au format normal et tapez q pour arrêter votre entrée");
+	printf("Entrez votre image au format normal et tapez q pour arrêter votre entrée :\n");
 	
 	/* On trouve sur l'entree un caractere acceptable */
 	for(c = getchar(); (c != 'q') && (c != 'Q') && (c != 'B') && (c != 'N') && (c != '.'); c = getchar());

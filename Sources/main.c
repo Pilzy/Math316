@@ -10,9 +10,15 @@
 	git push
 */
 
-int main(int argc, char** argv)
+int main()
 {
-	printf("Pour une fois c'est moi qui baise ta soeur ;) \n");
+	image img = NULL;
+	
+	img = lireClavier();
+	
+	printf("Voici votre image : ");
+	affichageNormal(img);
+	printf("\n");
 	
 	return 0;
 }

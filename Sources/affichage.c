@@ -15,7 +15,10 @@ void affichageNormal(image img)
 		if(estNoire(img) == true)
 			printf("N");
 		else
+		{
+			printf(".");
 			for(i = 0; i < 4; affichageNormal(img->fils[i]), i++);
+		}
 	}
 }
 
