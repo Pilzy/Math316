@@ -29,16 +29,26 @@ image construitComposee(image i1, image i2, image i3, image i4)
 
 bool estBlanche(image img)
 {
+	image tmp = copie(img);
+	simplifie(tmp);
 	return img == NULL ? true : false;
 }
 
 bool estNoire(image img)
 {
+	image tmp = copie(img);
+	simplifie(tmp);
 	return (img != NULL) && (img->toutnoir == true) ? true : false;
 }
 
-bool memeDessin(image img1, image img2)
+bool memeDessin(image src1, image src2)
 {
+	/* On commence par simplifie les deux images données */
+	image img1 = copie(src1);
+	simplifie(img1);
+	image img2 = copie(src2);
+	simplifie(img2);
+	
 	if(img1 == NULL)
 		return img2 == NULL ? true : false;
 	else if(img2 == NULL)
@@ -92,6 +102,12 @@ void negatif(image img)
    Si une image est plus pixellisée que l'autre alors nous pixellisons l'image la moins pixellisée */
 image difference(image img1, image img2)
 {
+	/* On commence par simplifie les deux images données */
+	image img1 = copie(src1);
+	simplifie(img1);
+	image img2 = copie(src2);
+	simplifie(img2);
+	
 	/* img1 est blanche */
 	if(img1 == NULL)
 	{
