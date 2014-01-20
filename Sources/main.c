@@ -28,5 +28,12 @@ int main()
 	affichageNormal(img3);
 	printf("\n");
 	
+	if(img1 != NULL)
+		rendMemoire(img1);
+	if(img2 != NULL)
+		rendMemoire(img2);
+	if(img3 != NULL)
+		rendMemoire(img3);
+	
 	return 0;
 }

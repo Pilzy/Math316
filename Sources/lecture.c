@@ -24,11 +24,12 @@ image lireClavierRecurssif(char c)
 	int i;
 	char ctmp;
 	image tmp[4];
+	image ret;
 	
 	if(c == 'B')
-		return construitBlanc();
+		ret = construitBlanc();
 	else if(c == 'N')
-		return construitNoir();
+		ret = construitNoir();
 	else if(c == '.')
 	{
 		/* On recupere les images suivantes */
@@ -42,7 +43,9 @@ image lireClavierRecurssif(char c)
 		
 		
 		/* On construit la sous-image */
-		return construitComposee(tmp[0], tmp[1], tmp[2], tmp[3]);
+		ret = construitComposee(tmp[0], tmp[1], tmp[2], tmp[3]);
 	}
+	
+	return ret;
 }
 
