@@ -55,34 +55,50 @@ bool memeDessin(image src1, image src2)
 	image img2 = copie(src2);
 	simplifie(&img2);
 	
-	if(img1 == NULL)
-		return img2 == NULL ? true : false;
-	else if(img2 == NULL)
-		return false;
+	bool ret = false;
 	
-	if(img1->toutnoir == true)
-		return img2->toutnoir == true ? true : false;
+	if(img1 == NULL)
+		ret = img2 == NULL ? true : false;
+	else if(img2 == NULL)
+		ret = false;
+	else if(img1->toutnoir == true)
+		ret = img2->toutnoir == true ? true : false;
 	else if(img2->toutnoir == true)
-		return false;
+		ret = false;
 	else
-		return (memeDessin(img1->fils[0], img2->fils[0]) == true) && (memeDessin(img1->fils[1], img2->fils[1]) == true) && (memeDessin(img1->fils[2], img2->fils[2]) == true) && (memeDessin(img1->fils[3], img2->fils[3]) == true);
+		ret = (memeDessin(img1->fils[0], img2->fils[0]) == true) && (memeDessin(img1->fils[1], img2->fils[1]) == true) && (memeDessin(img1->fils[2], img2->fils[2]) == true) && (memeDessin(img1->fils[3], img2->fils[3]) == true);
+	
+	rendMemoire(img1);
+	rendMemoire(img2);
+	
+	return ret;
 }
 
 /* Simplifie l'image */
 void simplifie(image* img)
 {
+	int i;
+	
 	/*Si l'image est pixellisée alors on fait quelque chose. */
 	if((*img != NULL) && ((*img)->toutnoir != true))
 	{
 		/* Si les 4 sont blanches alors on simplifie */
 		if((estBlanche((*img)->fils[0]) == true) && (estBlanche((*img)->fils[1]) == true) && (estBlanche((*img)->fils[2]) == true) && (estBlanche((*img)->fils[3]) == true))
 		{
+			for(i = 0; i < 4; rendMemoire((*img)->fils[i]), i++);
 			rendMemoire((*img));
 			(*img) = NULL;
 		}
 		/* Si les 4 sont noires alors on simplifie */
 		else if((estNoire((*img)->fils[0]) == true) && (estNoire((*img)->fils[1]) == true) && (estNoire((*img)->fils[2]) == true) && (estNoire((*img)->fils[3]) == true))
+		{
+			for(i = 0; i < 4; i++)
+			{
+				rendMemoire((*img)->fils[i]);
+				(*img)->fils[i] = NULL;
+			}
 			(*img)->toutnoir = true;
+		}
 		/* Sinon on essaie de simplifier les pixels */
 		else
 		{
@@ -135,18 +151,19 @@ image difference(image src1, image src2)
 	image img2 = copie(src2);
 	simplifie(&img2);
 	
+	image ret;
+	
 	/* img1 est blanche */
 	if(img1 == NULL)
 	{
 		/* img2 est blanche */
 		if(img2 == NULL)
-			return NULL;
+			ret = NULL;
 		/* img2 est noire */
 		else if(img2->toutnoir == true)
 		{
 			image ret = (image) calloc(1, sizeof(r_image));
 			ret->toutnoir = true;
-			return ret;
 		}
 		/* Il faut pixelliser img1 */
 		else
@@ -157,7 +174,6 @@ image difference(image src1, image src2)
 			ret->fils[1] = difference(img1, img2->fils[1]);
 			ret->fils[2] = difference(img1, img2->fils[2]);
 			ret->fils[3] = difference(img1, img2->fils[3]);
-			return ret;
 		}
 	}
 	/* img1 est noire */
@@ -168,11 +184,10 @@ image difference(image src1, image src2)
 		{
 			image ret = (image) calloc(1, sizeof(r_image));
 			ret->toutnoir = true;
-			return ret;
 		}
 		/* img2 est noire */
 		else if(img2->toutnoir == true)
-			return NULL;
+			ret = NULL;
 		/* Il faut pixelliser img1 */
 		else
 		{
@@ -182,7 +197,6 @@ image difference(image src1, image src2)
 			ret->fils[1] = difference(img1, img2->fils[1]);
 			ret->fils[2] = difference(img1, img2->fils[2]);
 			ret->fils[3] = difference(img1, img2->fils[3]);
-			return ret;
 		}
 	}
 	/* img1 est pixellisée */
@@ -197,7 +211,6 @@ image difference(image src1, image src2)
 			ret->fils[1] = difference(img1->fils[1], img2);
 			ret->fils[2] = difference(img1->fils[2], img2);
 			ret->fils[3] = difference(img1->fils[3], img2);
-			return ret;
 		}
 		/* Les deux images sont pixellisées */
 		else
@@ -208,9 +221,13 @@ image difference(image src1, image src2)
 			ret->fils[1] = difference(img1->fils[1], img2->fils[1]);
 			ret->fils[2] = difference(img1->fils[2], img2->fils[2]);
 			ret->fils[3] = difference(img1->fils[3], img2->fils[3]);
-			return ret;
 		}
 	}
+	
+	rendMemoire(img1);
+	rendMemoire(img2);
+	
+	return ret;
 }
 
 int aireNoire(image img)

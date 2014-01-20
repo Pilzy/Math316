@@ -15,7 +15,16 @@ int main()
 	image img1 = NULL, img2 = NULL, img3 = NULL;
 	
 	img1 = lireClavier();
+	printf("Voici votre image 1 : ");
+	affichageNormal(img1);
+	printf("\n");
+	
+	/*
 	img2 = copie(img1);
+	printf("Voici votre image 1 : ");
+	affichageNormal(img1);
+	printf("\n");
+	
 	img3 = difference(img1 , img2);
 	if(img1 == img2)
 		printf("toto\n");
@@ -29,6 +38,13 @@ int main()
 	printf("Voici votre image 3 : ");
 	affichageNormal(img3);
 	printf("\n");
-	
+	*/
+	if(img1 != NULL)
+		rendMemoire(img1);
+	/*if(img2 != NULL)
+		rendMemoire(img2);
+	if(img3 != NULL)
+		rendMemoire(img3);
+	*/
 	return 0;
 }
