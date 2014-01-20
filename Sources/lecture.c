@@ -11,21 +11,19 @@ image lireClavier()
 {
 	char c;
 	
-	printf("Entrez votre image au format normal et tapez q pour arrêter votre entrée :\n");
+	printf("Entrez votre image au format normal :\n");
 	
 	/* On trouve sur l'entree un caractere acceptable */
-	for(c = getchar(); (c != 'q') && (c != 'Q') && (c != 'B') && (c != 'N') && (c != '.'); c = getchar());
+	for(c = getchar(); (c != 'B') && (c != 'N') && (c != '.'); c = getchar());
 	
-	if((c == 'q') || (c == 'Q'))
-		return NULL;
-	else
-		return lireClavierRecurssif(c);
+	return lireClavierRecurssif(c);
 }
 
 image lireClavierRecurssif(char c)
 {
 	int i;
-	char tmp[4];
+	char ctmp;
+	image tmp[4];
 	
 	if(c == 'B')
 		return construitBlanc();
@@ -33,21 +31,18 @@ image lireClavierRecurssif(char c)
 		return construitNoir();
 	else if(c == '.')
 	{
-		/* On recupere les 4 caracteres elligibles suivant */
+		/* On recupere les images suivantes */
 		for(i = 0; i < 4; i++)
 		{
-			for(tmp[i] = getchar(); (tmp[i] != 'q') && (tmp[i] != 'Q') && (tmp[i] != 'B') && (tmp[i] != 'N') && (tmp[i] != '.'); tmp[i] = getchar());
+			/* Tant qu'on n'a pas un caractere correcte */
+			for(ctmp = getchar(); (ctmp != 'B') && (ctmp != 'N') && (ctmp != '.'); ctmp = getchar());
 			
-			/* Si on dit de quitter au milieu de la defition de l'image on la complete avec du blanc. */
-			if((c == 'q') || (c == 'Q'))
-			{
-				for(;i < 4; tmp[i] = 'B', i++);
-				break;
-			}
+			tmp[i] = lireClavierRecurssif(ctmp);
 		}
 		
+		
 		/* On construit la sous-image */
-		return construitComposee(lireClavierRecurssif(tmp[0]), lireClavierRecurssif(tmp[1]), lireClavierRecurssif(tmp[2]), lireClavierRecurssif(tmp[3]));
+		return construitComposee(tmp[0], tmp[1], tmp[2], tmp[3]);
 	}
 }
 

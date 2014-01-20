@@ -33,7 +33,10 @@ void affichageProfondeur(image img)
 		if(estNoire(img) == true)
 			printf("N%d", profondeur);
 		else
+		{
+			printf(".%d", profondeur);
 			for(i = 0; i < 4; affichageProfondeurK(img->fils[i], profondeur + 1), i++);
+		}
 	}
 }
 
@@ -48,7 +51,10 @@ void affichageProfondeurK(image img, int profondeur)
 		if(estNoire(img) == true)
 			printf("N%d", profondeur);
 		else
+		{
+			printf(".%d", profondeur);
 			for(i = 0; i < 4; affichageProfondeurK(img->fils[i], profondeur + 1), i++);
+		}
 	}
 }
 

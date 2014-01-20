@@ -19,6 +19,8 @@ int main()
 	printf("Voici votre image : ");
 	affichageNormal(img);
 	printf("\n");
+	affichageProfondeur(img);
+	printf("\n");
 	
 	return 0;
 }
