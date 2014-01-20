@@ -52,54 +52,40 @@ bool memeDessin(image img1, image img2)
 		return (memeDessin(img1->fils[0], img2->fils[0]) == true) && (memeDessin(img1->fils[1], img2->fils[1]) == true) && (memeDessin(img1->fils[2], img2->fils[2]) == true) && (memeDessin(img1->fils[3], img2->fils[3]) == true);
 }
 
-image simplifie(image img)
+void simplifie(image img)
 {
-	image img0 = (image) calloc(1, sizeof(r_image));
-	return img0;
+	
 }
 
-/*Renvoie une image qui est la copie de celle passée en parametre */
+/* Renvoie une image qui est la copie de celle passée en parametre */
 image copie(image src)
 {
 	if(src == NULL)
 		return NULL;
-	
-	image dest = (image) calloc(1, sizeof(r_image));
-	
-	if(src->toutnoir == true)
-		dest->toutnoir = true;
+	else if(src->toutnoir == true)
+		return construitNoir();
 	else
-	{
-		dest->toutnoir = false;
-		dest->fils[0] = copie(src->fils[0]);
-		dest->fils[1] = copie(src->fils[1]);
-		dest->fils[2] = copie(src->fils[2]);
-		dest->fils[3] = copie(src->fils[3]);
-	}
-	
-	return dest;
+		construitComposee(copie(src->fils[0]), copie(src->fils[1]), copie(src->fils[2]), copie(src->fils[3]));
 }
 
-/* Renvoie un negatif de l'image actuelle */
-image negatif(image src)
+/* Transforme l'image en negatif */
+void negatif(image img)
 {
-	if((src != NULL) && (src->toutnoir == true))
-		return NULL;
+	image tmp = NULL;
 	
-	image dest = (image) calloc(1, sizeof(r_image));
-	
-	if(src == NULL)
-		dest->toutnoir = true;
+	if(img == NULL)
+		img = construitNoir();
+	else if(img->toutnoir == true)
+	{
+		rendMemoire(img);
+		img = NULL;
+	}
 	else
 	{
-		dest->toutnoir = false;
-		dest->fils[0] = negatif(src->fils[0]);
-		dest->fils[1] = negatif(src->fils[1]);
-		dest->fils[2] = negatif(src->fils[2]);
-		dest->fils[3] = negatif(src->fils[3]);
+		tmp = construitComposee(img->fils[0]), img->fils[1], img->fils[2], img->fils[3]);
+		rendMemoire(img);
+		img = tmp;
 	}
-	
-	return dest;
 }
 
 /* Renvoie une image qui est noire là où les deux images sont différentes.
