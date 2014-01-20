@@ -11,8 +11,10 @@ image construitBlanc()
 
 image construitNoir()
 {
+	int i;
 	image img = (image) calloc(1, sizeof(r_image));
 	img->toutnoir = true;
+	for(i = 0; i < 4; img->fils[i] = NULL, i++);
 	return img;
 }
 

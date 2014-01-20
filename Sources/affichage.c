@@ -12,7 +12,7 @@ void affichageNormal(image img)
 		printf("B");
 	else
 	{
-		if(estNoire(img) == true)
+		if(img->toutnoir == true)
 			printf("N");
 		else
 		{
@@ -30,7 +30,7 @@ void affichageProfondeur(image img)
 		printf("B%d", profondeur);
 	else
 	{
-		if(estNoire(img) == true)
+		if(img->toutnoir == true)
 			printf("N%d", profondeur);
 		else
 		{
@@ -48,7 +48,7 @@ void affichageProfondeurK(image img, int profondeur)
 		printf("B%d", profondeur);
 	else
 	{
-		if(estNoire(img) == true)
+		if(img->toutnoir == true)
 			printf("N%d", profondeur);
 		else
 		{
