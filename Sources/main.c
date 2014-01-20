@@ -17,6 +17,8 @@ int main()
 	img1 = lireClavier();
 	img2 = copie(img1);
 	img3 = difference(img1 , img2);
+	if(img1 == img2)
+		printf("toto\n");
 	
 	printf("Voici votre image 1 : ");
 	affichageNormal(img1);

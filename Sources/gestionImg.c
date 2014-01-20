@@ -51,9 +51,9 @@ bool memeDessin(image src1, image src2)
 {
 	/* On commence par simplifie les deux images données */
 	image img1 = copie(src1);
-	simplifie(img1);
+	simplifie(&img1);
 	image img2 = copie(src2);
-	simplifie(img2);
+	simplifie(&img2);
 	
 	if(img1 == NULL)
 		return img2 == NULL ? true : false;
@@ -68,27 +68,28 @@ bool memeDessin(image src1, image src2)
 		return (memeDessin(img1->fils[0], img2->fils[0]) == true) && (memeDessin(img1->fils[1], img2->fils[1]) == true) && (memeDessin(img1->fils[2], img2->fils[2]) == true) && (memeDessin(img1->fils[3], img2->fils[3]) == true);
 }
 
-void simplifie(image img)
+/* Simplifie l'image */
+void simplifie(image* img)
 {
 	/*Si l'image est pixellisée alors on fait quelque chose. */
-	if((img != NULL) && (img->toutnoir != true))
+	if((*img != NULL) && ((*img)->toutnoir != true))
 	{
 		/* Si les 4 sont blanches alors on simplifie */
-		if((estBlanche(img->fils[0]) == true) && (estBlanche(img->fils[1]) == true) && (estBlanche(img->fils[2]) == true) && (estBlanche(img->fils[3]) == true))
+		if((estBlanche((*img)->fils[0]) == true) && (estBlanche((*img)->fils[1]) == true) && (estBlanche((*img)->fils[2]) == true) && (estBlanche((*img)->fils[3]) == true))
 		{
-			rendMemoire(img);
-			img = NULL;
+			rendMemoire((*img));
+			(*img) = NULL;
 		}
 		/* Si les 4 sont noires alors on simplifie */
-		else if((estNoire(img->fils[0]) == true) && (estNoire(img->fils[1]) == true) && (estNoire(img->fils[2]) == true) && (estNoire(img->fils[3]) == true))
-			img->toutnoir = true;
+		else if((estNoire((*img)->fils[0]) == true) && (estNoire((*img)->fils[1]) == true) && (estNoire((*img)->fils[2]) == true) && (estNoire((*img)->fils[3]) == true))
+			(*img)->toutnoir = true;
 		/* Sinon on essaie de simplifier les pixels */
 		else
 		{
-			simplifie(img->fils[0]);
-			simplifie(img->fils[1]);
-			simplifie(img->fils[2]);
-			simplifie(img->fils[3]);
+			simplifie(&((*img)->fils[0]));
+			simplifie(&((*img)->fils[1]));
+			simplifie(&((*img)->fils[2]));
+			simplifie(&((*img)->fils[3]));
 		}
 	}
 }
@@ -101,26 +102,26 @@ image copie(image src)
 	else if(src->toutnoir == true)
 		return construitNoir();
 	else
-		construitComposee(copie(src->fils[0]), copie(src->fils[1]), copie(src->fils[2]), copie(src->fils[3]));
+		return construitComposee(copie(src->fils[0]), copie(src->fils[1]), copie(src->fils[2]), copie(src->fils[3]));
 }
 
 /* Transforme l'image en negatif */
-void negatif(image img)
+void negatif(image* img)
 {
 	image tmp = NULL;
 	
-	if(img == NULL)
-		img = construitNoir();
-	else if(img->toutnoir == true)
+	if(*img == NULL)
+		*img = construitNoir();
+	else if((*img)->toutnoir == true)
 	{
-		rendMemoire(img);
-		img = NULL;
+		rendMemoire(*img);
+		*img = NULL;
 	}
 	else
 	{
-		tmp = construitComposee(img->fils[0], img->fils[1], img->fils[2], img->fils[3]);
-		rendMemoire(img);
-		img = tmp;
+		tmp = construitComposee((*img)->fils[0], (*img)->fils[1], (*img)->fils[2], (*img)->fils[3]);
+		rendMemoire(*img);
+		img = &tmp;
 	}
 }
 
@@ -130,9 +131,9 @@ image difference(image src1, image src2)
 {
 	/* On commence par simplifie les deux images données */
 	image img1 = copie(src1);
-	simplifie(img1);
+	simplifie(&img1);
 	image img2 = copie(src2);
-	simplifie(img2);
+	simplifie(&img2);
 	
 	/* img1 est blanche */
 	if(img1 == NULL)
