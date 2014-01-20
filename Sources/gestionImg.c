@@ -34,7 +34,7 @@ bool estBlanche(image img)
 	else if(img->toutnoir == true)
 		return false;
 	else
-		return (estBlanche(img[0]) == true) && (estBlanche(img[1]) == true) && (estBlanche(img[2]) == true) && (estBlanche(img[3]) == true) ? true : false;
+		return (estBlanche(img->fils[0]) == true) && (estBlanche(img->fils[1]) == true) && (estBlanche(img->fils[2]) == true) && (estBlanche(img->fils[3]) == true) ? true : false;
 }
 
 bool estNoire(image img)
@@ -44,7 +44,7 @@ bool estNoire(image img)
 	else if(img->toutnoir == true)
 		return true;
 	else
-		return (estNoire(img[0]) == true) && (estNoire(img[1]) == true) && (estNoire(img[2]) == true) && (estNoire(img[3]) == true) ? true : false;
+		return (estNoire(img->fils[0]) == true) && (estNoire(img->fils[1]) == true) && (estNoire(img->fils[2]) == true) && (estNoire(img->fils[3]) == true) ? true : false;
 }
 
 bool memeDessin(image src1, image src2)
@@ -74,21 +74,21 @@ void simplifie(image img)
 	if((img != NULL) && (img->toutnoir != true))
 	{
 		/* Si les 4 sont blanches alors on simplifie */
-		if((estBlanche(img[0]) == true) && (estBlanche(img[1]) == true) && (estBlanche(img[2]) == true) && (estBlanche(img[3]) == true))
+		if((estBlanche(img->fils[0]) == true) && (estBlanche(img->fils[1]) == true) && (estBlanche(img->fils[2]) == true) && (estBlanche(img->fils[3]) == true))
 		{
 			rendMemoire(img);
 			img = NULL;
 		}
 		/* Si les 4 sont noires alors on simplifie */
-		else if((estNoire(img[0]) == true) && (estNoire(img[1]) == true) && (estNoire(img[2]) == true) && (estNoire(img[3]) == true))
+		else if((estNoire(img->fils[0]) == true) && (estNoire(img->fils[1]) == true) && (estNoire(img->fils[2]) == true) && (estNoire(img->fils[3]) == true))
 			img->toutnoir = true;
 		/* Sinon on essaie de simplifier les pixels */
 		else
 		{
-			simplifie(img[0]);
-			simplifie(img[1]);
-			simplifie(img[2]);
-			simplifie(img[3]);
+			simplifie(img->fils[0]);
+			simplifie(img->fils[1]);
+			simplifie(img->fils[2]);
+			simplifie(img->fils[3]);
 		}
 	}
 }
@@ -126,7 +126,7 @@ void negatif(image img)
 
 /* Renvoie une image qui est noire là où les deux images sont différentes.
    Si une image est plus pixellisée que l'autre alors nous pixellisons l'image la moins pixellisée */
-image difference(image img1, image img2)
+image difference(image src1, image src2)
 {
 	/* On commence par simplifie les deux images données */
 	image img1 = copie(src1);
