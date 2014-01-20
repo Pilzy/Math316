@@ -16,7 +16,8 @@ int main()
 	
 	img1 = lireClavier();
 	img2 = copie(img1);
-	img3 = difference(img1 , img2);
+	negatif(&img2);
+	//img3 = difference(img1 , img2);
 	
 	printf("Voici votre image 1 : ");
 	affichageNormal(img1);
@@ -27,6 +28,7 @@ int main()
 	printf("Voici votre image 3 : ");
 	affichageNormal(img3);
 	printf("\n");
+	printf("Aire en Noire : %d et %d \n", aireNoire(img1), aireNoire(img2));
 	
 	if(img1 != NULL)
 		rendMemoire(img1);

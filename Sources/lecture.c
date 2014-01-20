@@ -48,4 +48,3 @@ image lireClavierRecurssif(char c)
 	
 	return ret;
 }
-
