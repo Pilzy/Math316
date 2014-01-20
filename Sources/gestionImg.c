@@ -29,16 +29,22 @@ image construitComposee(image i1, image i2, image i3, image i4)
 
 bool estBlanche(image img)
 {
-	image tmp = copie(img);
-	simplifie(tmp);
-	return img == NULL ? true : false;
+	if(img == NULL)
+		return true;
+	else if(img->toutnoir == true)
+		return false;
+	else
+		return (estBlanche(img[0]) == true) && (estBlanche(img[1]) == true) && (estBlanche(img[2]) == true) && (estBlanche(img[3]) == true) ? true : false;
 }
 
 bool estNoire(image img)
 {
-	image tmp = copie(img);
-	simplifie(tmp);
-	return (img != NULL) && (img->toutnoir == true) ? true : false;
+	if(img == NULL)
+		return false;
+	else if(img->toutnoir == true)
+		return true;
+	else
+		return (estNoire(img[0]) == true) && (estNoire(img[1]) == true) && (estNoire(img[2]) == true) && (estNoire(img[3]) == true) ? true : false;
 }
 
 bool memeDessin(image src1, image src2)
@@ -64,7 +70,11 @@ bool memeDessin(image src1, image src2)
 
 void simplifie(image img)
 {
-	
+	/*Si l'image est pixellisée alors on fait quelque chose. */
+	if((img != NULL) && (img->toutnoir != true))
+	{
+		
+	}
 }
 
 /* Renvoie une image qui est la copie de celle passée en parametre */
