@@ -52,7 +52,6 @@ bool memeDessin(image img1, image img2)
 		return (memeDessin(img1->fils[0], img2->fils[0]) == true) && (memeDessin(img1->fils[1], img2->fils[1]) == true) && (memeDessin(img1->fils[2], img2->fils[2]) == true) && (memeDessin(img1->fils[3], img2->fils[3]) == true);
 }
 
-//AFAIRE
 image simplifie(image img)
 {
 	image img = (image) calloc(1, sizeof(r_image));
