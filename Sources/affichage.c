@@ -1,6 +1,6 @@
 
 /* Contient les fonctonnalités d'affichage des images */
-/* Nous n'utilisons pas ici les fonctions estBlanc() ou estNoir()
+/* Nous n'utilisons pas ici les fonctions estBlanche() ou estNoire()
    car elles renvoient un résultat simplifié et notre but est d'afficher l'image
    telle qu'elle est stockée en mémmoire (donc pixellisée si elle l'est). */
 
