@@ -48,4 +48,7 @@ image arrondie(image, int);
 image nebuleuse(int);
 image alea(int, int);
 
+/* Prototypes des tests */
+void testFonctionsDeBase();
+
 #endif
