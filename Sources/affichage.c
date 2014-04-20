@@ -1,7 +1,7 @@
 
 /* Contient les fonctonnalités d'affichage des images */
-/* Nous n'utilisons pas ici les fonctions estBlanche() ou estNoire()
-   car elles renvoient un résultat simplifié et notre but est d'afficher l'image
+/* Nous n'utilisons pas forcément les fonctions estBlanche() ou estNoire()
+   car elles renvoient un résultat simplifié et notre but peut être d'afficher l'image
    telle qu'elle est stockée en mémmoire (donc pixellisée si elle l'est). */
 
 #include "struct.h"
@@ -75,6 +75,84 @@ void affichageProfondeurK(image img, int profondeur)
 /* Affiche l'image au format 2k */
 void affichage2k(image img, int k)
 {
+	Image img = NULL;
 	
+	while(k != 0)
+	{
+		
+	}
+}
+
+/* Affiche l'image au format 2k de manière récursive */
+void affichage2kRecursif(image img, int k)
+{
+	int i;
 	
+	if(k != 0)
+	{
+		/* Si l'image est noire ou blanche on l'affiche 4 fois */
+		if((img == NULL) || (img->toutnoir == true))
+		{
+			for(i = 0; i < 4; affichage2k(img, k-1), i++);
+		}
+		else
+			for(i = 0; i < 4; affichage2k(img->fils[i], k-1), i++);
+	}
+	else
+	{
+		if(estBlanche(img))
+			printf(".");
+		else if(estNoire(img))
+			printf("8");
+		else
+			printf("-");
+	}
+}
+
+/* Affiche l'image au format 2k de manière récursive */
+void affichage2kHaut(image img, int k)
+{
+	int i;
+	
+	if(k != 0)
+	{
+		/* Si l'image est noire ou blanche on l'affiche 4 fois */
+		if((img == NULL) || (img->toutnoir == true))
+			for(i = 0; i < 4; affichage2k(img, k-1), i++);
+		else
+			for(i = 0; i < 4; affichage2k(img->fils[i], k-1), i++);
+	}
+	else
+	{
+		if(estBlanche(img))
+			printf(".");
+		else if(estNoire(img))
+			printf("8");
+		else
+			printf("-");
+	}
+}
+
+/* Affiche l'image au format 2k de manière récursive */
+void affichage2kBas(image img, int k)
+{
+	int i;
+	
+	if(k != 0)
+	{
+		/* Si l'image est noire ou blanche on l'affiche 4 fois */
+		if((img == NULL) || (img->toutnoir == true))
+			for(i = 0; i < 4; affichage2k(img, k-1), i++);
+		else
+			for(i = 0; i < 4; affichage2k(img->fils[i], k-1), i++);
+	}
+	else
+	{
+		if(estBlanche(img))
+			printf(".");
+		else if(estNoire(img))
+			printf("8");
+		else
+			printf("-");
+	}
 }
