@@ -84,12 +84,21 @@ void testFonctionsDeBase()
 	
 	/*Affichage en mode 2k*/
 	printf("Affichage en mode 2k\n");
+	printf("Voici votre image 1 (Profondeur : 1) :\n");
+	affichage2k(img1, 0); printf("\n");
+	printf("Voici votre image 1 (Profondeur : 1) :\n");
+	affichage2k(img1, 1); printf("\n");
 	printf("Voici votre image 1 (Profondeur : 2) :\n");
+	affichage2k(img1, 2); printf("\n");
+	printf("Voici votre image 1 (Profondeur : 3) :\n");
 	affichage2k(img1, 3); printf("\n");
-	/*printf("Voici votre image 2 (Profondeur : 2) :\n");
-	affichage2k(img2, 4); printf("\n");
-	printf("\n");
-	*/
+	printf("Voici votre image 1 (Profondeur : 4) :\n");
+	affichage2k(img1, 4); printf("\n");
+	printf("Voici votre image 1 (Profondeur : 5) :\n");
+	affichage2k(img1, 5); printf("\n");
+	printf("Voici votre image 1 (Profondeur : 6) :\n");
+	affichage2k(img1, 6); printf("\n");
+	
 	if(img1 != NULL)
 		rendMemoire(img1);
 	if(img2 != NULL)
