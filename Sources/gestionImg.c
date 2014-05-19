@@ -67,32 +67,18 @@ bool memeDessin(image src1, image src2)
 
 bool memeImage(image src1, image src2)
 {
-	/* On commence par copier et simplifier les deux images données */
-	image img1 = copie(src1);
-	simplifie(&img1);
-	image img2 = copie(src2);
-	simplifie(&img2);
-	
-	bool ret = false;
-	
-	if(img1 == NULL)
-		ret = (img2 == NULL ? true : false);
-	else if(img2 == NULL)
-		ret = false;
-	else if(img1->toutnoir)
-		ret = (img2->toutnoir ? true : false);
-	else if(img2->toutnoir)
-		ret = false;
-	else if(memeDessin(img1->fils[0], img2->fils[0]) && memeDessin(img1->fils[1], img2->fils[1]) && memeDessin(img1->fils[2], img2->fils[2]) && memeDessin(img1->fils[3], img2->fils[3]))
-		ret = true;
+	if(src1 == NULL)
+		return (src2 == NULL) ? true : false;
+	else if(src2 == NULL)
+		return false;
+	else if(src1->toutnoir)
+		return (src2->toutnoir) ? true : false;
+	else if(src2->toutnoir)
+		return false;
+	else if(memeImage(src1->fils[0], src2->fils[0]) && memeImage(src1->fils[1], src2->fils[1]) && memeImage(src1->fils[2], src2->fils[2]) && memeImage(src1->fils[3], src2->fils[3]))
+		return true;
 	else
-		ret = false;
-	
-	/*On rend la mémoire utilisée pour le test */
-	rendMemoire(img1);
-	rendMemoire(img2);
-	
-	return ret;
+		return false;
 }
 
 /* Simplifie l'image */

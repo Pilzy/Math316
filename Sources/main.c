@@ -60,17 +60,13 @@ void testFonctionsDeBase()
 	
 	/* Test memeImage() */
 	memeImage(img1, img3) ? printf("La 1 et la 3 sont identiques.\n") : printf("ERREUR : La 1 et la 3 sont differentes.\n");
-	
-	printf("Voici votre image 1 :\n");
-	affichageNormal(img1); printf("\n");
-	
-	!memeImage(img1, img2) ? printf("La 1 et la 2 sont differentes.\n") : printf("ERREUR : La 1 et la 2 sont identiques.\n");
+	(!memeImage(img1, img2)) ? printf("La 1 et la 2 sont differentes.\n") : printf("ERREUR : La 1 et la 2 sont identiques.\n");
 	printf("\n");
 	
 	/* Test memeDessin() */
 	memeDessin(img1, img3) ? printf("La 1 et la 3 ont le meme dessin.\n") : printf("ERREUR : La 1 et la 3 n'ont pas le meme dessin.\n");
 	memeDessin(img1, img2) ? printf("La 1 et la 2 ont le meme dessin.\n") : printf("ERREUR : La 1 et la 2 n'ont pas le meme dessin.\n");
-	!memeDessin(img1, img4) ? printf("La 1 et la 4 n'ont pas le meme dessin.\n") : printf("ERREUR : La 1 et la 4 ont le meme dessin.\n");
+	(!memeDessin(img1, img4)) ? printf("La 1 et la 4 n'ont pas le meme dessin.\n") : printf("WARNING : La 1 et la 4 ont le meme dessin.\n");
 	printf("\n");
 	
 	/* Test estBlanche() et estNoire() */
