@@ -22,19 +22,7 @@ void testFonctionsDeBase()
 {
 	image img1 = NULL, img2 = NULL, img3 = NULL, img4 = NULL, img5 = NULL;
 	
-	/* L'image 1 est lue au clavie */
-	img1 = lireClavier();
-	printf("\n");
-	printf("Profondeur de l'image 1 : %d\n", profondeur(img1));
-	printf("Aire en noire image 1 : %f\n", aireNoire(img1));
-	
-	/* L'image 2 est lue au clavie */
-	img2 = lireClavier();
-	printf("\n");
-	
-	printf("%d\n", memeDessin(img1, img2));
-	
-	/* L'image 1 est lue au clavie */
+	/* L'image 1 est lue au clavier */
 	img1 = lireClavier();
 	printf("\n");
 	
@@ -70,8 +58,19 @@ void testFonctionsDeBase()
 	affichageProfondeur(img5); printf("\n");
 	printf("\n");
 	
+	/* Test memeImage() */
+	memeImage(img1, img3) ? printf("La 1 et la 3 sont identiques.\n") : printf("ERREUR : La 1 et la 3 sont differentes.\n");
+	
+	printf("Voici votre image 1 :\n");
+	affichageNormal(img1); printf("\n");
+	
+	!memeImage(img1, img2) ? printf("La 1 et la 2 sont differentes.\n") : printf("ERREUR : La 1 et la 2 sont identiques.\n");
+	printf("\n");
+	
 	/* Test memeDessin() */
-	(memeDessin(img1, img3) == true) ? printf("La 1 et la 3 sont identiques.\n") : printf("ERREUR : La 1 et la 3 sont differentes.\n");
+	memeDessin(img1, img3) ? printf("La 1 et la 3 ont le meme dessin.\n") : printf("ERREUR : La 1 et la 3 n'ont pas le meme dessin.\n");
+	memeDessin(img1, img2) ? printf("La 1 et la 2 ont le meme dessin.\n") : printf("ERREUR : La 1 et la 2 n'ont pas le meme dessin.\n");
+	!memeDessin(img1, img4) ? printf("La 1 et la 4 n'ont pas le meme dessin.\n") : printf("ERREUR : La 1 et la 4 ont le meme dessin.\n");
 	printf("\n");
 	
 	/* Test estBlanche() et estNoire() */

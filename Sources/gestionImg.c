@@ -52,32 +52,17 @@ bool estNoire(image img)
 
 bool memeDessin(image src1, image src2)
 {
-	/* On commence par copier et simplifier les deux images données */
-	image img1 = copie(src1);
-	simplifie(&img1);
-	image img2 = copie(src2);
-	simplifie(&img2);
-	
-	bool ret = false;
-	
-	if(img1 == NULL)
-		ret = (img2 == NULL ? true : false);
-	else if(img2 == NULL)
-		ret = false;
-	else if(img1->toutnoir == true)
-		ret = (img2->toutnoir == true ? true : false);
-	else if(img2->toutnoir == true)
-		ret = false;
-	else if((memeDessin(img1->fils[0], img2->fils[0]) == true) && (memeDessin(img1->fils[1], img2->fils[1]) == true) && (memeDessin(img1->fils[2], img2->fils[2]) == true) && (memeDessin(img1->fils[3], img2->fils[3]) == true))
-		ret = true;
+	if(memeImage(src1, src2))
+		return true;
 	else
-		ret = false;
-	
-	/*On rend la mémoire utilisée pour le test */
-	rendMemoire(img1);
-	rendMemoire(img2);
-	
-	return ret;
+	{
+		image img2 = copie(src2);
+		negatif(&img2);
+		bool ret = memeImage(src1, img2);
+		rendMemoire(img2);
+		
+		return ret;
+	}
 }
 
 bool memeImage(image src1, image src2)
@@ -94,11 +79,11 @@ bool memeImage(image src1, image src2)
 		ret = (img2 == NULL ? true : false);
 	else if(img2 == NULL)
 		ret = false;
-	else if(img1->toutnoir == true)
-		ret = (img2->toutnoir == true ? true : false);
-	else if(img2->toutnoir == true)
+	else if(img1->toutnoir)
+		ret = (img2->toutnoir ? true : false);
+	else if(img2->toutnoir)
 		ret = false;
-	else if((memeDessin(img1->fils[0], img2->fils[0]) == true) && (memeDessin(img1->fils[1], img2->fils[1]) == true) && (memeDessin(img1->fils[2], img2->fils[2]) == true) && (memeDessin(img1->fils[3], img2->fils[3]) == true))
+	else if(memeDessin(img1->fils[0], img2->fils[0]) && memeDessin(img1->fils[1], img2->fils[1]) && memeDessin(img1->fils[2], img2->fils[2]) && memeDessin(img1->fils[3], img2->fils[3]))
 		ret = true;
 	else
 		ret = false;
@@ -116,25 +101,21 @@ void simplifie(image* img)
 	int i;
 	
 	/*Si l'image est pixellisée alors on fait quelque chose. */
-	if((*img != NULL) && ((*img)->toutnoir != true))
+	if((*img) != NULL && !(*img)->toutnoir)
 	{
 		/* Si les 4 sont blanches alors on simplifie */
-		if((estBlanche((*img)->fils[0]) == true) && (estBlanche((*img)->fils[1]) == true) && (estBlanche((*img)->fils[2]) == true) && (estBlanche((*img)->fils[3]) == true))
+		if(estBlanche((*img)->fils[0]) && estBlanche((*img)->fils[1]) && estBlanche((*img)->fils[2]) && estBlanche((*img)->fils[3]))
 		{
 			/* Il faut mettre l'image a NULL donc on libère d'abord la mémoire occupée par l'image */
-			for(i = 0; i < 4; i++)
-			{
-				rendMemoire((*img)->fils[i]);
-			}
 			rendMemoire((*img));
 			
 			/* L'image est définie comme blanche */
 			(*img) = NULL;
 		}
 		/* Si les 4 sont noires alors on simplifie */
-		else if((estNoire((*img)->fils[0]) == true) && (estNoire((*img)->fils[1]) == true) && (estNoire((*img)->fils[2]) == true) && (estNoire((*img)->fils[3]) == true))
+		else if(estNoire((*img)->fils[0]) && estNoire((*img)->fils[1]) && estNoire((*img)->fils[2]) && estNoire((*img)->fils[3]))
 		{
-			/* Il faut mettre les sous-pixels à NULL est libérer la mémoire occupée par ceux-ci */
+			/* Il faut mettre les sous-pixels à NULL et libérer la mémoire occupée par ceux-ci */
 			for(i = 0; i < 4; i++)
 			{
 				rendMemoire((*img)->fils[i]);
@@ -159,8 +140,8 @@ void simplifie(image* img)
 image copie(image src)
 {
 	if(src == NULL)
-		return NULL;
-	else if(src->toutnoir == true)
+		return construitBlanc();
+	else if(src->toutnoir)
 		return construitNoir();
 	else
 		return construitComposee(copie(src->fils[0]), copie(src->fils[1]), copie(src->fils[2]), copie(src->fils[3]));
@@ -175,7 +156,7 @@ void negatif(image* img)
 	if((*img) == NULL)
 		(*img) = construitNoir();
 	/* Si l'image est noire alors on libère la mémoire est on définit l'image comme étant blanche */
-	else if((*img)->toutnoir == true)
+	else if((*img)->toutnoir)
 	{
 		rendMemoire(*img);
 		(*img) = NULL;
@@ -211,20 +192,20 @@ image difference(image src1, image src2)
 		if(img2 == NULL)
 			resultat = construitBlanc();
 		/* img2 est noire */
-		else if(img2->toutnoir == true)
+		else if(img2->toutnoir)
 			resultat = construitNoir();
 		/* Il faut pixelliser img1 en faisant la différence entre les pixels */
 		else
 			resultat = construitComposee(difference(img1, img2->fils[0]), difference(img1, img2->fils[1]), difference(img1, img2->fils[2]), difference(img1, img2->fils[3]));
 	}
 	/* img1 est noire */
-	else if(img1->toutnoir == true)
+	else if(img1->toutnoir)
 	{
 		/* img2 est blanche */
 		if(img2 == NULL)
 			resultat = construitNoir();
 		/* img2 est noire */
-		else if(img2->toutnoir == true)
+		else if(img2->toutnoir)
 			resultat = construitBlanc();
 		/* Il faut pixelliser img1 */
 		else
@@ -233,8 +214,8 @@ image difference(image src1, image src2)
 	/* img1 est pixellisée */
 	else
 	{
-		/* img2 est blanche ou blanche alors il faut la pixelliser */
-		if((img2 == NULL) || (img2->toutnoir == true))
+		/* img2 est blanche ou noire alors il faut la pixelliser */
+		if(img2 == NULL || img2->toutnoir)
 			resultat = construitComposee(difference(img1->fils[0], img2), difference(img1->fils[1], img2), difference(img1->fils[2], img2), difference(img1->fils[3], img2));
 		/* Les deux images sont pixellisées */
 		else
