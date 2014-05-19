@@ -250,37 +250,25 @@ image difference(image src1, image src2)
 	return resultat;
 }
 
-double aire(image img)
+double aireNoire(image img)
 {
 	int prof = profondeur(img);
-	double aireN = (double) aireNoire(img, prof);
 	
-	return (double) aireN / (double) (aireN + aireBlanche(img, prof));
+	return (double) aireNoireRecursif(img, prof) / pow(2, prof * 2);
 }
 
-int aireNoire(image img, int profondeur)
+double aireNoireRecursif(image img, int profondeur)
 {
-	int a = 0, i;
+	int i;
+	double a = 0;
 	
 	if(img != NULL)
 	{
 		if(img->toutnoir)
-			return (int) pow(2, profondeur * 2);
+			return pow(2, profondeur * 2);
 		else
-			for(i = 0; i < 4; a += aireNoire(img->fils[i], profondeur - 1), i++);
+			for(i = 0; i < 4; a += aireNoireRecursif(img->fils[i], profondeur - 1), i++);
 	}
-	
-	return a;
-}
-
-int aireBlanche(image img, int profondeur)
-{
-	int a = 0, i;
-	
-	if(img == NULL)
-		return (int) pow(2, profondeur * 2);
-	else if(!img->toutnoir)
-		for(i = 0; i < 4; a += aireBlanche(img->fils[i], profondeur - 1), i++);
 	
 	return a;
 }
