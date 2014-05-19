@@ -5,6 +5,7 @@
    telle qu'elle est stockée en mémmoire (donc pixellisée si elle l'est). */
 
 #include "struct.h"
+#include <math.h>
 
 /* Affiche l'image au format normal */
 void affichageNormal(image img)
@@ -75,80 +76,68 @@ void affichageProfondeurK(image img, int profondeur)
 /* Affiche l'image au format 2k */
 void affichage2k(image img, int k)
 {
-	/*while(k != 0)
-	{
-		
-	}*/
-}
-
-/* Affiche l'image au format 2k de manière récursive */
-void affichage2kRecursif(image img, int k)
-{
-	int i;
+	int i, j, tmp = pow(2, k);
+	char** matrice = NULL;
 	
-	if(k != 0)
-	{
-		/* Si l'image est noire ou blanche on l'affiche 4 fois */
-		if((img == NULL) || img->toutnoir)
-			for(i = 0; i < 4; affichage2k(img, k-1), i++);
-		else
-			for(i = 0; i < 4; affichage2k(img->fils[i], k-1), i++);
-	}
-	else
-	{
-		if(estBlanche(img))
-			printf(".");
-		else if(estNoire(img))
-			printf("8");
-		else
-			printf("-");
-	}
-}
-
-/* Affiche l'image au format 2k de manière récursive */
-void affichage2kHaut(image img, int k)
-{
-	int i;
+	/*Allocation de la matrice*/
+	matrice = (char**) calloc(tmp, sizeof(char*));
+	for(i = 0; i < tmp; matrice[i] = (char*) calloc(tmp, sizeof(char)), i++);
 	
-	if(k != 0)
+	for(i = 0; i < tmp; i++)
 	{
-		/* Si l'image est noire ou blanche on l'affiche 4 fois */
-		if((img == NULL) || img->toutnoir)
-			for(i = 0; i < 4; affichage2k(img, k-1), i++);
-		else
-			for(i = 0; i < 4; affichage2k(img->fils[i], k-1), i++);
+		for(j = 0; j < tmp; j++)
+		{
+			matrice[i][j] = '_';
+		}
 	}
-	else
+	
+	affichage2kRecursif(img, k, matrice, 0, 0);
+	
+	for(i = 0; i < tmp; i++)
 	{
-		if(estBlanche(img))
-			printf(".");
-		else if(estNoire(img))
-			printf("8");
-		else
-			printf("-");
+		for(j = 0; j < tmp; j++)
+		{
+			printf("%c", matrice[i][j]);
+		}
+		printf("\n");
 	}
 }
 
 /* Affiche l'image au format 2k de manière récursive */
-void affichage2kBas(image img, int k)
+void affichage2kRecursif(image img, int k, char** matrice, int ligneDebut, int colonneDebut)
 {
-	int i;
+	int i, j, tmp;
 	
-	if(k != 0)
+	if(estBlanche(img))
 	{
-		/* Si l'image est noire ou blanche on l'affiche 4 fois */
-		if((img == NULL) || img->toutnoir)
-			for(i = 0; i < 4; affichage2k(img, k-1), i++);
-		else
-			for(i = 0; i < 4; affichage2k(img->fils[i], k-1), i++);
+		for(i = ligneDebut; i < ligneDebut + pow(2, k); i++)
+		{
+			for(j = colonneDebut; j < colonneDebut + pow(2, k); j++)
+			{
+				matrice[i][j] = '.';
+			}
+		}
+	}
+	else if(estNoire(img))
+	{
+		for(i = ligneDebut; i < ligneDebut + pow(2, k); i++)
+		{
+			for(j = colonneDebut; j < colonneDebut + pow(2, k); j++)
+			{
+				matrice[i][j] = '8';
+			}
+		}
+	}
+	else if(k == 0)
+	{
+		matrice[ligneDebut][colonneDebut] = '-';
 	}
 	else
 	{
-		if(estBlanche(img))
-			printf(".");
-		else if(estNoire(img))
-			printf("8");
-		else
-			printf("-");
+		tmp = pow(2, k - 1);
+		affichage2kRecursif(img->fils[0], k - 1, matrice, ligneDebut, colonneDebut);
+		affichage2kRecursif(img->fils[1], k - 1, matrice, ligneDebut, colonneDebut + tmp);
+		affichage2kRecursif(img->fils[2], k - 1, matrice, ligneDebut + tmp, colonneDebut);
+		affichage2kRecursif(img->fils[3], k - 1, matrice, ligneDebut + tmp, colonneDebut + tmp);
 	}
 }

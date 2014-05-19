@@ -37,7 +37,7 @@ bool estBlanche(image img)
 	else if(img->toutnoir)
 		return false;
 	else
-		return estBlanche(img->fils[0]) && estBlanche(img->fils[1]) && estBlanche(img->fils[2]) && estBlanche(img->fils[3]);
+		return (estBlanche(img->fils[0]) && estBlanche(img->fils[1]) && estBlanche(img->fils[2]) && estBlanche(img->fils[3]));
 }
 
 bool estNoire(image img)
@@ -47,7 +47,7 @@ bool estNoire(image img)
 	else if(img->toutnoir)
 		return true;
 	else
-		return estNoire(img->fils[0]) && estNoire(img->fils[1]) && estNoire(img->fils[2]) && estNoire(img->fils[3]);
+		return (estNoire(img->fils[0]) && estNoire(img->fils[1]) && estNoire(img->fils[2]) && estNoire(img->fils[3]));
 }
 
 bool memeDessin(image src1, image src2)
