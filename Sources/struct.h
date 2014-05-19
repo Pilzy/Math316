@@ -45,11 +45,16 @@ void simplifie(image*);
 image copie(image);
 void negatif(image*);
 image difference(image, image);
-int aireNoire(image);
+double aire(image);
+int aireNoire(image, int);
+int aireBlanche(image, int);
 void rendMemoire(image);
 image arrondie(image, int);
 image nebuleuse(int);
 image alea(int, int);
+void viderBuffer();
+bool memeImage(image, image);
+int profondeur(image img);
 
 /* Prototypes des tests */
 void testFonctionsDeBase();

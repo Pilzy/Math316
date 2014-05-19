@@ -25,6 +25,18 @@ void testFonctionsDeBase()
 	/* L'image 1 est lue au clavie */
 	img1 = lireClavier();
 	printf("\n");
+	printf("Profondeur de l'image 1 : %d\n", profondeur(img1));
+	printf("Aire en noire image 1 : %f\n", aire(img1));
+	
+	/* L'image 2 est lue au clavie */
+	img2 = lireClavier();
+	printf("\n");
+	
+	printf("%d\n", memeDessin(img1, img2));
+	
+	/* L'image 1 est lue au clavie */
+	img1 = lireClavier();
+	printf("\n");
 	
 	/* L'image 2 est copiée est mis en négatif */
 	img2 = copie(img1);
@@ -68,11 +80,11 @@ void testFonctionsDeBase()
 	printf("\n");
 	
 	/* Test aireNoire() */
-	printf("Aire en noire image 1 : %d\n", aireNoire(img1));
-	printf("Aire en noire image 2 : %d\n", aireNoire(img2));
-	printf("Aire en noire image 3 : %d\n", aireNoire(img3));
-	printf("Aire en noire image 4 : %d\n", aireNoire(img4));
-	printf("Aire en noire image 5 : %d\n", aireNoire(img5));
+	printf("Aire en noire image 1 : %f\n", aire(img1));
+	printf("Aire en noire image 2 : %f\n", aire(img2));
+	printf("Aire en noire image 3 : %f\n", aire(img3));
+	printf("Aire en noire image 4 : %f\n", aire(img4));
+	printf("Aire en noire image 5 : %f\n", aire(img5));
 	printf("\n");
 	
 	/*Affichage en mode 2k*/

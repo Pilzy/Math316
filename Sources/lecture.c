@@ -9,6 +9,7 @@
 image lireClavier()
 {
 	char c;
+	image resultat = NULL;
 	
 	printf("Entrez votre image au format normal :\n");
 	
@@ -16,7 +17,9 @@ image lireClavier()
 	for(c = getchar(); (c != 'B') && (c != 'N') && (c != '.'); c = getchar());
 	
 	/* On appelle la fonction récrusive de lecture */
-	return lireClavierRecurssif(c);
+	resultat = lireClavierRecurssif(c);
+	viderBuffer();
+	return resultat;
 }
 
 image lireClavierRecurssif(char c)
@@ -50,4 +53,14 @@ image lireClavierRecurssif(char c)
 	}
 	
 	return resultat;
+}
+
+void viderBuffer()
+{
+	int c = 0;
+	
+	while (c != '\n' && c != EOF)
+	{
+		c = getchar();
+	}
 }

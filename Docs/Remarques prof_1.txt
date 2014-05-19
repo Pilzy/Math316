@@ -1,15 +1,11 @@
 ---------------------------- Message original ----------------------------
 Objet : info 316 Castel De : "Laurent Rosaz" <Laurent.Rosaz@lri.fr>
 Date : Lun 10 février 2014 23:48 À : "Castel Hugo" <hugo.castel@u-psud.fr> --------------------------------------------------------------------------
-
 toutnoir est un booléen, donc "if truc->toutnoir == true" est une redondance inutile
-
 CB, CN, CC : RAS
-
 EB, EN : usage particulièrement lourd du "== true"
 
 Memedessin : NON vous faites memeimage, MD(.NNNN BBB, .NBB.BB.BBBB B) doit rendre vrai.
-
 L'usage de ?: est assez moche en général (credo : un pgm bien érit est compris par qqun qui ne connait pas le langage) et c'est particulièrement vrai dans l'usage que vous en faites, à savoir (truc ? vrai : faux)
 
 Simplifie : manip pas habiles sur les rendmemeoire dans le cas estblanc
@@ -33,3 +29,4 @@ lecture : principe algo OK. Mise en place (cf surfonction) malhabile
 Aff : RAS
 
 Aff_prof : maladroit dans l'uitlisation de la surfonction
+

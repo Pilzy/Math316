@@ -2,6 +2,7 @@
 /* Contient les fonctonnalités de base et de gestion des images */
 
 #include "struct.h"
+#include <math.h>
 
 
 image construitBlanc()
@@ -33,23 +34,53 @@ bool estBlanche(image img)
 {
 	if(img == NULL)
 		return true;
-	else if(img->toutnoir == true)
+	else if(img->toutnoir)
 		return false;
 	else
-		return (estBlanche(img->fils[0]) == true) && (estBlanche(img->fils[1]) == true) && (estBlanche(img->fils[2]) == true) && (estBlanche(img->fils[3]) == true) ? true : false;
+		return estBlanche(img->fils[0]) && estBlanche(img->fils[1]) && estBlanche(img->fils[2]) && estBlanche(img->fils[3]);
 }
 
 bool estNoire(image img)
 {
 	if(img == NULL)
 		return false;
-	else if(img->toutnoir == true)
+	else if(img->toutnoir)
 		return true;
 	else
-		return (estNoire(img->fils[0]) == true) && (estNoire(img->fils[1]) == true) && (estNoire(img->fils[2]) == true) && (estNoire(img->fils[3]) == true) ? true : false;
+		return estNoire(img->fils[0]) && estNoire(img->fils[1]) && estNoire(img->fils[2]) && estNoire(img->fils[3]);
 }
 
 bool memeDessin(image src1, image src2)
+{
+	/* On commence par copier et simplifier les deux images données */
+	image img1 = copie(src1);
+	simplifie(&img1);
+	image img2 = copie(src2);
+	simplifie(&img2);
+	
+	bool ret = false;
+	
+	if(img1 == NULL)
+		ret = (img2 == NULL ? true : false);
+	else if(img2 == NULL)
+		ret = false;
+	else if(img1->toutnoir == true)
+		ret = (img2->toutnoir == true ? true : false);
+	else if(img2->toutnoir == true)
+		ret = false;
+	else if((memeDessin(img1->fils[0], img2->fils[0]) == true) && (memeDessin(img1->fils[1], img2->fils[1]) == true) && (memeDessin(img1->fils[2], img2->fils[2]) == true) && (memeDessin(img1->fils[3], img2->fils[3]) == true))
+		ret = true;
+	else
+		ret = false;
+	
+	/*On rend la mémoire utilisée pour le test */
+	rendMemoire(img1);
+	rendMemoire(img2);
+	
+	return ret;
+}
+
+bool memeImage(image src1, image src2)
 {
 	/* On commence par copier et simplifier les deux images données */
 	image img1 = copie(src1);
@@ -219,19 +250,56 @@ image difference(image src1, image src2)
 	return resultat;
 }
 
-int aireNoire(image img)
+double aire(image img)
+{
+	int prof = profondeur(img);
+	double aireN = (double) aireNoire(img, prof);
+	
+	return (double) aireN / (double) (aireN + aireBlanche(img, prof));
+}
+
+int aireNoire(image img, int profondeur)
 {
 	int a = 0, i;
 	
 	if(img != NULL)
 	{
-		if(img->toutnoir == true)
-			return 1;
+		if(img->toutnoir)
+			return (int) pow(2, profondeur * 2);
 		else
-			for(i = 0; i < 4; a += aireNoire(img->fils[i]), i++);
+			for(i = 0; i < 4; a += aireNoire(img->fils[i], profondeur - 1), i++);
 	}
 	
 	return a;
+}
+
+int aireBlanche(image img, int profondeur)
+{
+	int a = 0, i;
+	
+	if(img == NULL)
+		return (int) pow(2, profondeur * 2);
+	else if(!img->toutnoir)
+		for(i = 0; i < 4; a += aireBlanche(img->fils[i], profondeur - 1), i++);
+	
+	return a;
+}
+
+int profondeur(image img)
+{
+	int i, prof = 0, tmp;
+	
+	if(img != NULL && !img->toutnoir)
+	{
+		for(i = 0; i < 4; i++)
+		{
+			tmp = profondeur(img->fils[i]);
+			if(tmp + 1 > prof)
+				prof = tmp + 1;
+		}
+	}
+	
+	return prof;
 }
 
 void rendMemoire(image img)
@@ -240,7 +308,7 @@ void rendMemoire(image img)
 	
 	if(img != NULL)
 	{
-		if(img->toutnoir == false)
+		if(!img->toutnoir)
 			for(i = 0; i < 4; rendMemoire(img->fils[i]), i++);
 		
 		free(img);

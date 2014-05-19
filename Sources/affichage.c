@@ -17,7 +17,7 @@ void affichageNormal(image img)
 	else
 	{
 		/* Si l'image est noire. */
-		if(img->toutnoir == true)
+		if(img->toutnoir)
 			printf("N");
 		/* Sinon on affiche les pixels */
 		else
@@ -39,7 +39,7 @@ void affichageProfondeur(image img)
 	else
 	{
 		/* Si l'image est noire. */
-		if(img->toutnoir == true)
+		if(img->toutnoir)
 			printf("N%d", profondeur);
 		/* Sinon on affiche les pixels */
 		else
@@ -61,7 +61,7 @@ void affichageProfondeurK(image img, int profondeur)
 	else
 	{
 		/* Si l'image est noire. */
-		if(img->toutnoir == true)
+		if(img->toutnoir)
 			printf("N%d", profondeur);
 		/* Sinon on affiche les pixels */
 		else
@@ -75,12 +75,10 @@ void affichageProfondeurK(image img, int profondeur)
 /* Affiche l'image au format 2k */
 void affichage2k(image img, int k)
 {
-	Image img = NULL;
-	
-	while(k != 0)
+	/*while(k != 0)
 	{
 		
-	}
+	}*/
 }
 
 /* Affiche l'image au format 2k de manière récursive */
@@ -91,10 +89,8 @@ void affichage2kRecursif(image img, int k)
 	if(k != 0)
 	{
 		/* Si l'image est noire ou blanche on l'affiche 4 fois */
-		if((img == NULL) || (img->toutnoir == true))
-		{
+		if((img == NULL) || img->toutnoir)
 			for(i = 0; i < 4; affichage2k(img, k-1), i++);
-		}
 		else
 			for(i = 0; i < 4; affichage2k(img->fils[i], k-1), i++);
 	}
@@ -117,7 +113,7 @@ void affichage2kHaut(image img, int k)
 	if(k != 0)
 	{
 		/* Si l'image est noire ou blanche on l'affiche 4 fois */
-		if((img == NULL) || (img->toutnoir == true))
+		if((img == NULL) || img->toutnoir)
 			for(i = 0; i < 4; affichage2k(img, k-1), i++);
 		else
 			for(i = 0; i < 4; affichage2k(img->fils[i], k-1), i++);
@@ -141,7 +137,7 @@ void affichage2kBas(image img, int k)
 	if(k != 0)
 	{
 		/* Si l'image est noire ou blanche on l'affiche 4 fois */
-		if((img == NULL) || (img->toutnoir == true))
+		if((img == NULL) || img->toutnoir)
 			for(i = 0; i < 4; affichage2k(img, k-1), i++);
 		else
 			for(i = 0; i < 4; affichage2k(img->fils[i], k-1), i++);
