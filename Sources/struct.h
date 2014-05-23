@@ -56,6 +56,7 @@ void testAlea();
 image matriceToImage(int, char**, int, int);
 void testNebuleuse();
 void testArrondi();
+void menu();
 
 /* Prototypes des tests */
 void testFonctionsDeBase();

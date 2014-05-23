@@ -20,6 +20,12 @@ int main()
 	return EXIT_SUCCESS;
 }
 
+/*Fonction optionnelle. */
+void menu()
+{
+	
+}
+
 /* Fais appel à la fonction Nebuleuse pour la tester. */
 void testArrondi()
 {
