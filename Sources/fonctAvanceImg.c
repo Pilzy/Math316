@@ -6,16 +6,170 @@
 #include <math.h>
 
 
-image arrondie(image img, int k)
+void arrondie(image* img, int k)
 {
-	image img0 = (image) calloc(1, sizeof(r_image));
-	return img0;
+	/* Si l'image n'est ni blanche ni noire à ce niveau */
+	if(*img != NULL && !((*img)->toutnoir))
+	{
+		/* Si on doit arrondir */
+		if(k == 0)
+		{
+			/*Si l'image n'est ni blanche ni noire nous arrondissons en dessous */
+			if(!estBlanche((*img)->fils[0]) && !estNoire((*img)->fils[0]))
+				arrondie(&((*img)->fils[0]), k);
+			/*Si l'image n'est ni blanche ni noire nous arrondissons en dessous */
+			if(!estBlanche((*img)->fils[1]) && !estNoire((*img)->fils[1]))
+				arrondie(&((*img)->fils[1]), k);
+			/*Si l'image n'est ni blanche ni noire nous arrondissons en dessous */
+			if(!estBlanche((*img)->fils[2]) && !estNoire((*img)->fils[2]))
+				arrondie(&((*img)->fils[2]), k);
+			/*Si l'image n'est ni blanche ni noire nous arrondissons en dessous */
+			if(!estBlanche((*img)->fils[3]) && !estNoire((*img)->fils[3]))
+				arrondie(&((*img)->fils[3]), k);
+			
+			/* L'arrondi en lui-même. Dans le cas où il y a autant de blanc que de noir le noir l'emporte. */
+			/* 0 = B, 1 = ?, 2 = ?, 3 = ?. */
+			if(estBlanche((*img)->fils[0]))
+			{
+				/* 0 = B, 1 = B, 2 = ?, 3 = ?. */
+				if(estBlanche((*img)->fils[1]))
+				{
+					/* 0 = B, 1 = B, 2 = B, 3 = ?. */
+					/* Il y a 3 B on arrondit B. */
+					if(estBlanche((*img)->fils[2]))
+					{
+						rendMemoire(*img);
+						*img = construitBlanc();
+					}
+					/* 0 = B, 1 = B, 2 = N, 3 = ?. */
+					else
+					{
+						/* 0 = B, 1 = B, 2 = N, 3 = B. */
+						/* Il y a 3 B on arrondit B. */
+						if(estBlanche((*img)->fils[3]))
+						{
+							rendMemoire(*img);
+							*img = construitBlanc();
+						}
+						/* 0 = B, 1 = B, 2 = N, 3 = N. */
+						/* Il y a 2 N on arrondit N. */
+						else
+						{
+							rendMemoire(*img);
+							*img = construitNoir();
+						}
+					}
+				}
+				/* 0 = B, 1 = N, 2 = ?, 3 = ?. */
+				else
+				{
+					/* 0 = B, 1 = N, 2 = B, 3 = ?. */
+					if(estBlanche((*img)->fils[2]))
+					{
+						/* 0 = B, 1 = N, 2 = B, 3 = B. */
+						/* Il y a 3 B on arrondit B. */
+						if(estBlanche((*img)->fils[3]))
+						{
+							rendMemoire(*img);
+							*img = construitBlanc();
+						}
+						/* 0 = B, 1 = N, 2 = B, 3 = N. */
+						/* Il y a 2 N on arrondit N. */
+						else
+						{
+							rendMemoire(*img);
+							*img = construitNoir();
+						}
+					}
+					/* 0 = B, 1 = N, 2 = N, 3 = ?. */
+					/* Il y a 2 N on arrondit N. */
+					else
+					{
+						rendMemoire(*img);
+						*img = construitNoir();
+					}
+				}
+			}
+			/* 0 = N, 1 = ?, 2 = ?, 3 = ?. */
+			else
+			{
+				/* 0 = N, 1 = B, 2 = ?, 3 = ?. */
+				if(estBlanche((*img)->fils[1]))
+				{
+					/* 0 = N, 1 = B, 2 = B, 3 = ?. */
+					if(estBlanche((*img)->fils[2]))
+					{
+						/* 0 = N, 1 = B, 2 = B, 3 = B. */
+						/* Il y a 3 B on arrondit B. */
+						if(estBlanche((*img)->fils[3]))
+						{
+							rendMemoire(*img);
+							*img = construitBlanc();
+						}
+						/* 0 = N, 1 = B, 2 = B, 3 = N. */
+						/* Il y a 2 N on arrondit N. */
+						else
+						{
+							rendMemoire(*img);
+							*img = construitNoir();
+						}
+					}
+					/* 0 = N, 1 = B, 2 = N, 3 = ?. */
+					/* Il y a 2 N on arrondit N. */
+					else
+					{
+						rendMemoire(*img);
+						*img = construitNoir();
+					}
+				}
+				/* 0 = N, 1 = N, 2 = ?, 3 = ?. */
+				/* Il y a 2 N on arrondit N. */
+				else
+				{
+					rendMemoire(*img);
+					*img = construitNoir();
+				}
+			}
+		}
+		/* Sinon on appelle la fonction récursivement pour qu'elle arrondisse les pixels du dessous */
+		else 
+		{
+			arrondie(&((*img)->fils[0]), k - 1);
+			arrondie(&((*img)->fils[1]), k - 1);
+			arrondie(&((*img)->fils[2]), k - 1);
+			arrondie(&((*img)->fils[3]), k - 1);
+		}
+	}
 }
 
 image nebuleuse(int k)
 {
-	image img = (image) calloc(1, sizeof(r_image));
-	return img;
+	srand(time(NULL));
+	int i, j, r, d, dG, tmp = pow(2, k);
+	char** matrice = NULL;
+	
+	/*Allocation de la matrice*/
+	matrice = (char**) calloc(tmp, sizeof(char*));
+	for(i = 0; i < tmp; matrice[i] = (char*) calloc(tmp, sizeof(char)), i++);
+	
+	dG = tmp / sqrt(2);
+	
+	/* On ajoute les points à la matrice */
+	for(i = 0; i < tmp; i++)
+	{
+		for(j = 0; j < tmp; j++)
+		{
+			r = rand() % 100;
+			d = sqrt((i - tmp / 2) * (i - tmp / 2) + (j - tmp / 2) * (j - tmp / 2));
+			
+			if(r < (dG - d) * 100 / dG)
+				matrice[i][j] = '8';
+			else
+				matrice[i][j] = '.';
+		}
+	}
+	
+	return matriceToImage(k, matrice, 0, 0);
 }
 
 image alea(int k, int nOrigin)

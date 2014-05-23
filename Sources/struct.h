@@ -46,7 +46,7 @@ image difference(image, image);
 double aireNoire(image);
 double aireNoireRecursif(image, int);
 void rendMemoire(image);
-image arrondie(image, int);
+void arrondie(image*, int);
 image nebuleuse(int);
 image alea(int, int);
 void viderBuffer();
@@ -54,6 +54,8 @@ bool memeImage(image, image);
 int profondeur(image img);
 void testAlea();
 image matriceToImage(int, char**, int, int);
+void testNebuleuse();
+void testArrondi();
 
 /* Prototypes des tests */
 void testFonctionsDeBase();

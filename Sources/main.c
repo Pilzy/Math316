@@ -12,9 +12,38 @@
 
 int main()
 {
-	testAlea();
+	testArrondi();
 	
 	return EXIT_SUCCESS;
+}
+
+/* Fais appel à la fonction Nebuleuse pour la tester. */
+void testArrondi()
+{
+	int k = 2;
+	image img1 = lireClavier();
+	printf("\n");
+	printf("Voici votre image :\n");
+	affichageNormal(img1); printf("\n");
+	
+	arrondie(&img1, k);
+	printf("Voici votre image arrondie a %d :\n", k);
+	affichageNormal(img1); printf("\n");
+	
+	if(img1 != NULL)
+		rendMemoire(img1);
+}
+
+/* Fais appel à la fonction Nebuleuse pour la tester. */
+void testNebuleuse()
+{
+	int k = 6;
+	image img1 = nebuleuse(k);
+	printf("Voici votre nebuleuse(%d) :\n", k);
+	affichage2k(img1, k); printf("\n");
+	
+	if(img1 != NULL)
+		rendMemoire(img1);
 }
 
 /* Fais appel à la fonction alea pour la tester. */
@@ -22,12 +51,11 @@ void testAlea()
 {
 	int k = 4, n = 42;
 	image img1 = alea(k, n);
-	printf("Voici votre image alea(%d, %d) :\n", k, n);
+	printf("Voici votre image aleatoire(%d, %d) :\n", k, n);
 	affichage2k(img1, k); printf("\n");
 	
 	if(img1 != NULL)
 		rendMemoire(img1);
-	
 }
 
 /* Fais appel à toutes les fonctions de base contenues dans gestionImg.c, dans affichage.c et dans lecture.c */
