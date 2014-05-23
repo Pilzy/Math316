@@ -101,6 +101,10 @@ void affichage2k(image img, int k)
 		}
 		printf("\n");
 	}
+	
+	/* On libère la matrice. */
+	for(i = 0; i < tmp; free(matrice[i]), i++);
+	free(matrice);
 }
 
 /* Créé l'image à afficher au format 2k de manière récursive. L'image est stockée dans une matrice déjà initialisée. */

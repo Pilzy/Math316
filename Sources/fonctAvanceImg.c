@@ -147,6 +147,7 @@ image nebuleuse(int k)
 	srand(time(NULL));
 	int i, j, r, d, dG, tmp = pow(2, k);
 	char** matrice = NULL;
+	image imgResult = NULL;
 	
 	/*Allocation de la matrice*/
 	matrice = (char**) calloc(tmp, sizeof(char*));
@@ -169,7 +170,14 @@ image nebuleuse(int k)
 		}
 	}
 	
-	return matriceToImage(k, matrice, 0, 0);
+	/* On récupère notre image. */
+	imgResult = matriceToImage(k, matrice, 0, 0);
+	
+	/* On libère la matrice. */
+	for(i = 0; i < tmp; free(matrice[i]), i++);
+	free(matrice);
+	
+	return imgResult;
 }
 
 image alea(int k, int nOrigin)
@@ -177,6 +185,7 @@ image alea(int k, int nOrigin)
 	srand(time(NULL));
 	int i, j, l, tmp = pow(2, k), r, n;
 	char** matrice = NULL;
+	image imgResult = NULL;
 	
 	if(nOrigin > tmp * tmp)
 		n = tmp * tmp;
@@ -236,7 +245,14 @@ image alea(int k, int nOrigin)
 			matrice[l][j] = '.';
 	}
 	
-	return matriceToImage(k, matrice, 0, 0);
+	/* On récupère notre image. */
+	imgResult = matriceToImage(k, matrice, 0, 0);
+	
+	/* On libère la matrice. */
+	for(i = 0; i < tmp; free(matrice[i]), i++);
+	free(matrice);
+	
+	return imgResult;
 }
 
 image matriceToImage(int k, char** matrice, int ligneDebut, int colonneDebut)

@@ -13,6 +13,9 @@
 int main()
 {
 	testArrondi();
+	testNebuleuse();
+	testAlea();
+	testFonctionsDeBase();
 	
 	return EXIT_SUCCESS;
 }
