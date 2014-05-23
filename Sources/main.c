@@ -12,9 +12,22 @@
 
 int main()
 {
-	testFonctionsDeBase();
+	testAlea();
 	
 	return EXIT_SUCCESS;
+}
+
+/* Fais appel à la fonction alea pour la tester. */
+void testAlea()
+{
+	int k = 4, n = 42;
+	image img1 = alea(k, n);
+	printf("Voici votre image alea(%d, %d) :\n", k, n);
+	affichage2k(img1, k); printf("\n");
+	
+	if(img1 != NULL)
+		rendMemoire(img1);
+	
 }
 
 /* Fais appel à toutes les fonctions de base contenues dans gestionImg.c, dans affichage.c et dans lecture.c */
@@ -84,7 +97,7 @@ void testFonctionsDeBase()
 	
 	/*Affichage en mode 2k*/
 	printf("Affichage en mode 2k\n");
-	printf("Voici votre image 1 (Profondeur : 1) :\n");
+	printf("Voici votre image 1 (Profondeur : 0) :\n");
 	affichage2k(img1, 0); printf("\n");
 	printf("Voici votre image 1 (Profondeur : 1) :\n");
 	affichage2k(img1, 1); printf("\n");

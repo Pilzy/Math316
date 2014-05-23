@@ -91,7 +91,7 @@ void affichage2k(image img, int k)
 		}
 	}
 	
-	affichage2kRecursif(img, k, matrice, 0, 0);
+	imageToMatrice(img, k, matrice, 0, 0);
 	
 	for(i = 0; i < tmp; i++)
 	{
@@ -103,16 +103,17 @@ void affichage2k(image img, int k)
 	}
 }
 
-/* Affiche l'image au format 2k de manière récursive */
-void affichage2kRecursif(image img, int k, char** matrice, int ligneDebut, int colonneDebut)
+/* Créé l'image à afficher au format 2k de manière récursive. L'image est stockée dans une matrice déjà initialisée. */
+void imageToMatrice(image img, int k, char** matrice, int ligneDebut, int colonneDebut)
 {
 	int i, j, tmp;
 	
 	if(estBlanche(img))
 	{
-		for(i = ligneDebut; i < ligneDebut + pow(2, k); i++)
+		tmp = pow(2, k);
+		for(i = ligneDebut; i < ligneDebut + tmp; i++)
 		{
-			for(j = colonneDebut; j < colonneDebut + pow(2, k); j++)
+			for(j = colonneDebut; j < colonneDebut + tmp; j++)
 			{
 				matrice[i][j] = '.';
 			}
@@ -120,9 +121,10 @@ void affichage2kRecursif(image img, int k, char** matrice, int ligneDebut, int c
 	}
 	else if(estNoire(img))
 	{
-		for(i = ligneDebut; i < ligneDebut + pow(2, k); i++)
+		tmp = pow(2, k);
+		for(i = ligneDebut; i < ligneDebut + tmp; i++)
 		{
-			for(j = colonneDebut; j < colonneDebut + pow(2, k); j++)
+			for(j = colonneDebut; j < colonneDebut + tmp; j++)
 			{
 				matrice[i][j] = '8';
 			}
@@ -135,9 +137,9 @@ void affichage2kRecursif(image img, int k, char** matrice, int ligneDebut, int c
 	else
 	{
 		tmp = pow(2, k - 1);
-		affichage2kRecursif(img->fils[0], k - 1, matrice, ligneDebut, colonneDebut);
-		affichage2kRecursif(img->fils[1], k - 1, matrice, ligneDebut, colonneDebut + tmp);
-		affichage2kRecursif(img->fils[2], k - 1, matrice, ligneDebut + tmp, colonneDebut);
-		affichage2kRecursif(img->fils[3], k - 1, matrice, ligneDebut + tmp, colonneDebut + tmp);
+		imageToMatrice(img->fils[0], k - 1, matrice, ligneDebut, colonneDebut);
+		imageToMatrice(img->fils[1], k - 1, matrice, ligneDebut, colonneDebut + tmp);
+		imageToMatrice(img->fils[2], k - 1, matrice, ligneDebut + tmp, colonneDebut);
+		imageToMatrice(img->fils[3], k - 1, matrice, ligneDebut + tmp, colonneDebut + tmp);
 	}
 }

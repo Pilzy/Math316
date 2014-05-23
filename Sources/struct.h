@@ -35,7 +35,7 @@ void affichageNormal(image);
 void affichageProfondeur(image);
 void affichageProfondeurK(image, int);
 void affichage2k(image, int);
-void affichage2kRecursif(image, int, char**, int, int);
+void imageToMatrice(image, int, char**, int, int);
 bool estBlanche(image);
 bool estNoire(image);
 bool memeDessin(image, image);
@@ -52,6 +52,8 @@ image alea(int, int);
 void viderBuffer();
 bool memeImage(image, image);
 int profondeur(image img);
+void testAlea();
+image matriceToImage(int, char**, int, int);
 
 /* Prototypes des tests */
 void testFonctionsDeBase();
